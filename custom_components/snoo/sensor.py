@@ -1,8 +1,8 @@
 """Platform for sensor integration."""
 import logging
 
-from homeassistant.components.sensor import STATE_CLASS_MEASUREMENT, SensorEntity
-from homeassistant.const import DEVICE_CLASS_TIMESTAMP
+from homeassistant.components.sensor import (
+    SensorStateClass, SensorDeviceClass, SensorEntity)
 from pysnoo2 import ActivityState, SessionLevel
 
 from . import SnooHub
@@ -159,7 +159,7 @@ class SnooMainSensor(SnooSensor):
 class SnooSessionStartSensor(SnooSensor):
     """Sensor for the session's start time."""
 
-    _attr_device_class = DEVICE_CLASS_TIMESTAMP
+    _attr_device_class = SensorDeviceClass.TIMESTAMP
 
     @property
     def unique_id(self):
@@ -203,7 +203,7 @@ class SnooSessionStartSensor(SnooSensor):
 class SnooLevelSensor(SnooSensor):
     """Sensor for the current level in numeric form."""
 
-    _attr_state_class = STATE_CLASS_MEASUREMENT
+    _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_unit_of_measurement = "level"
 
     @property
