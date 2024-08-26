@@ -174,11 +174,13 @@ class SnooSessionStartSensor(SnooSensor):
     @property
     def state(self):
         """Return the state of the sensor."""
-        if self._as is None or not self._as.state_machine.is_active_session:
+        if (self._as is None 
+            or not self._as.state_machine.is_active_session
+            or self._as.state_machine.since_session_start is None):
             return None
-        return (
-            self._as.event_time - self._as.state_machine.since_session_start
-        ).isoformat()
+        
+        time_difference = self._as.event_time - self._as.state_machine.since_session_start
+        return time_difference.isoformat()
 
     @property
     def icon(self):
